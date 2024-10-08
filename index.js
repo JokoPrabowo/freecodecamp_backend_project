@@ -13,6 +13,43 @@ app.get('/', (req,res) => {
     res.sendFile(__dirname + '/views/index.html')
 })
 
+app.get("/api", (req,res) => {
+    const date = new Date()
+    res.json({
+        unix: date.getTime(),
+        utc: date.toUTCString()
+    })
+})
+
+app.get("/api/:date", (req, res) =>{
+    let input = req.params.date;
+    let date;
+
+    if(new Date(input) == "Invalid Date"){
+
+        if(isNaN(parseInt(input))){
+            date = new Date(input)
+        }else{
+            date = new Date(parseInt(input));
+        }
+
+    }else{
+        date = new Date(input);
+    }
+
+    if(date.toUTCString() == "Invalid Date"){
+        res.json({
+            error: "Invalid Date"
+        })
+    }else{
+        res.json({
+            unix: date.getTime(),
+            utc: date.toUTCString()
+        })
+    }
+
+})
+
 app.listen(process.env.PORT, () =>{
     console.log(`Server running on http://localhost:${process.env.PORT}`);
 })
