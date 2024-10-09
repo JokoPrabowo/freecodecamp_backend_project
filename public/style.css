@@ -1,5 +1,5 @@
 body{
-    background-color: whitesmoke;
+    background-color: white;
     color: black;
 }
 
@@ -9,4 +9,23 @@ header{
 
 main{
     text-align: center;
+}
+
+.btnx{
+    background-color: lightskyblue;
+    border: 5px solid transparent;
+    color: black;
+    font-weight: bold;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.btnx:hover{
+    background-color: azure;
+    border: 5px solid aquamarine;
 }

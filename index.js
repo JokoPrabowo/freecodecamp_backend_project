@@ -21,6 +21,15 @@ app.get("/api", (req,res) => {
     })
 })
 
+app.get('/api/whoami', (req, res) => {
+    res.json({
+        ipaddress: req.connection.remoteAddress,
+        language: req.headers['accept-language'],
+        software: req.headers['user-agent']
+    })
+    
+})
+
 app.get("/api/:date", (req, res) =>{
     let input = req.params.date;
     let date;
