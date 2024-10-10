@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Timestamp Microservice</title>
+        <title>freeCodeCamp backend project Microservice</title>
         <link rel="stylesheet" href="style.css" type="text/css">
     </head>
+    <style>
+        .btny{
+            margin-left: 10px;
+            padding: 5px;
+            background-color:lightskyblue;
+        }
+        .alink{
+            margin-top: 18px;
+        }
+    </style>
     <body>
         <header>
-            <h1>Backend project</h1>
+            <h1>Endpoint list</h1>
         </header>
         <main>
-            <h2>Endpoint list:</h2>
             <br>
-            <a href="/api/2015-12-25" type="button" class="btnx">Task 1 : point 1</a><br>
-            <a href="/api/1451001600000" type="button" class="btnx">Task 1 : point 2</a><br>
-            <a href="/api/whoami" type="button" class="btnx">Task 2 : point 1</a><br>
+            <section>
+                <fieldset>
+                    <legend>Timestamp</legend>
+                    <a href="/api/2015-12-25" type="button" class="btnx">Task 1 : point 1</a><br>
+                    <a href="/api/1451001600000" type="button" class="btnx">Task 1 : point 2</a><br>
+                </fieldset>
+                <fieldset>
+                    <legend>Request header</legend>
+                    <a href="/api/whoami" type="button" class="btnx">Task 2 : point 1</a><br>
+                </fieldset>
+                <fieldset>
+                    <form action="/api/shorturl" method="POST">
+                        <legend>URL shortener</legend>
+                        <label>URL :</label>
+                        <input type="text" id="url" name="url" class="inputx">                        
+                        <a href="/api/shorturl" type="submit"> 
+                            <button class="btny" type="submit">Post URL</button>
+                        </a>                                                                            
+                    </form>
+                </fieldset>
+            </section>
         </main>
     </body>
 </html>
