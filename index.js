@@ -44,6 +44,14 @@ app.get('/api/shorturl/:url',async (req, res) => {
     res.redirect(data.original_url)
 })
 
+app.get('/api/users', async (req, res) => {
+    let data = await User.find()
+
+    res.json({
+        data
+    })
+})
+
 app.post('/api/users', async (req, res) => {
     let data = await User.create({
         username: req.body.username
