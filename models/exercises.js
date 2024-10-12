@@ -10,7 +10,7 @@ const exerciseSchema = mongoose.Schema({
         type: Number,
         require: true
     },
-    date: String,
+    date: Date,
 })
 
 module.exports = mongoose.model("Exercise", exerciseSchema)
