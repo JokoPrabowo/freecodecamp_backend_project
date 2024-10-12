@@ -23,21 +23,37 @@
             <section>
                 <fieldset>
                     <legend>Timestamp</legend>
-                    <a href="/api/2015-12-25" type="button" class="btnx">Task 1 : point 1</a><br>
-                    <a href="/api/1451001600000" type="button" class="btnx">Task 1 : point 2</a><br>
+                    <a href="/api/2015-12-25" type="button" class="btnx">UTC Date</a><br>
+                    <a href="/api/1451001600000" type="button" class="btnx">Unix date</a><br>
                 </fieldset>
                 <fieldset>
                     <legend>Request header</legend>
-                    <a href="/api/whoami" type="button" class="btnx">Task 2 : point 1</a><br>
+                    <a href="/api/whoami" type="button" class="btnx">Whoami</a><br>
                 </fieldset>
                 <fieldset>
+                    <legend>URL shortener</legend>
                     <form action="/api/shorturl" method="POST">
-                        <legend>URL shortener</legend>
                         <label>URL :</label>
                         <input type="text" id="url" name="url" class="inputx">                        
                         <a href="/api/shorturl" type="submit"> 
                             <button class="btny" type="submit">Post URL</button>
                         </a>                                                                            
+                    </form>
+                </fieldset>
+                <fieldset>
+                    <legend>Exercise tracker</legend>
+                    <form action="/api/users" method="POST" class="trackerform">
+                        <h2>Create a new user</h2>
+                        <input type="text" name="username" id="username" placeholder="username"><br>
+                        <button type="submit">Submit</button>
+                    </form>
+                    <form action="/api/users/:id/exercises" method="POST" class="trackerform">
+                        <h2>Add exercise</h2>
+                        <input type="text" name="id" id="id" placeholder="_id"><br>
+                        <input type="text" name="description" id="description" placeholder="description*"><br>
+                        <input type="text" name="duration" id="duration" placeholder="duration* (mins.)"><br>
+                        <input type="text" name="date" id="date" placeholder="date (yyyy-mm-dd)"><br>
+                        <button type="submit">Submit</button>
                     </form>
                 </fieldset>
             </section>
