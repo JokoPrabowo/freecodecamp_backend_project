@@ -1,4 +1,6 @@
 const express = require('express')
+const multer = require('multer')
+const path = require('path')
 const dns = require('node:dns')
 const cors = require('cors')
 const database = require('./config/database')
@@ -9,6 +11,8 @@ const Exercise = require('./models/exercises')
  
 const app = express()
 require('dotenv').config()
+
+const upload = multer({ dest: '/uploads' })
 
 app.use(cors())
 app.use(express.json())
@@ -87,6 +91,15 @@ app.get('/api/users/:id/logs', async (req, res) => {
         to,
         count: exercise.length,
         log: data
+    })
+})
+
+app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
+    const { originalname, mimetype, size } = req.file
+    res.json({
+        name: originalname,
+        type: mimetype,
+        size,
     })
 })
 
