@@ -3,7 +3,9 @@ const dns = require('node:dns')
 const cors = require('cors')
 const database = require('./config/database')
 const { URL } = require('url')
-const Url = require('./models/url')
+const Url = require('./models/urls')
+const User = require('./models/users')
+const Exercise = require('./models/exercises')
  
 const app = express()
 require('dotenv').config()
@@ -41,6 +43,88 @@ app.get('/api/shorturl/:url',async (req, res) => {
         short_url: url
     })
     res.redirect(data.original_url)
+})
+
+app.get('/api/users', async (req, res) => {
+    let data = await User.find()
+    res.json(data)
+})
+
+app.get('/api/users/:id/logs', async (req, res) => {
+    let user = await User.findById(req.params.id)
+    let exercise
+    let data = []
+    if(req.query.from == null){
+        exercise = await Exercise.find({
+            username: user.username,
+        }).limit(req.query.limit)
+    }else{
+        var from = new Date(req.query.from).toDateString()
+        if(req.query.to != null){
+            exercise = await Exercise.find({
+                username: user.username,
+                date: {$gte: new Date(req.query.from), $lte: new Date(req.query.to)}
+            }).limit(req.query.limit)
+            var to = new Date(req.query.to).toDateString()
+        }else{
+            exercise = await Exercise.find({
+                username: user.username,
+                date: {$gte: new Date(req.query.from)}
+            }).limit(req.query.limit)
+        }
+    }
+    exercise.forEach(n => {
+        let obj = {}
+        obj.description = n.description,
+        obj.duration = n.duration,
+        obj.date = n.date.toDateString()
+        data.push(obj)
+    })
+    res.json({
+        _id: user._id,
+        username: user.username,
+        from,
+        to,
+        count: exercise.length,
+        log: data
+    })
+})
+
+app.post('/api/users/:id/exercises', async (req, res) => {
+    let user = await User.findById(req.params.id)
+    let date
+    if(req.body.date == null){
+        date = new Date()
+    }else {
+        date = new Date(req.body.date)
+    }
+
+    let data =  await Exercise.create({
+        username: user.username,
+        description: req.body.description,
+        duration: parseInt(req.body.duration),
+        date: date
+    })
+    date = data.date.toDateString()
+
+    res.json({
+        _id: req.params.id,
+        username: user.username,
+        description: data.description,
+        duration: data.duration,
+        date: date
+    })
+})
+
+app.post('/api/users', async (req, res) => {
+    let data = await User.create({
+        username: req.body.username
+    })
+
+    res.json({
+        username: data.username,
+        _id: data._id
+    })
 })
 
 app.post('/api/shorturl', (req, res, next) => {
