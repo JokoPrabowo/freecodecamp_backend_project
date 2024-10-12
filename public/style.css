@@ -73,3 +73,27 @@ fieldset{
 .trackerform input::placeholder{
     padding-left: 10px;
 }
+
+.metaform{
+    margin: 10px;
+    padding: 20px;
+    background-color: lightskyblue;
+    border-radius: 10px;
+}
+
+.metaform input{
+    border: white solid 2px;
+    margin-bottom: 10px;
+}
+
+.metaform button{
+    width: 100%;
+    height: 25px;
+    background-color: whitesmoke;
+    border: transparent;
+    border-radius: 10px;
+}
+
+.metaform button:hover{
+    background-color: white;
+}
