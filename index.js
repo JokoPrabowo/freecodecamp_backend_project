@@ -5,6 +5,7 @@ const database = require('./config/database')
 const { URL } = require('url')
 const Url = require('./models/urls')
 const User = require('./models/users')
+const Exercise = require('./models/exercises')
  
 const app = express()
 require('dotenv').config()
@@ -48,7 +49,27 @@ app.get('/api/users', async (req, res) => {
     let data = await User.find()
 
     res.json({
-        data
+        users: data
+    })
+})
+
+app.post('/api/users/:id/exercises', async (req, res) => {
+    let date = new Date(req.body.date).toUTCString()
+    let user = await User.findById(req.params.id)
+    
+    let data =  await Exercise.create({
+        username: user.username,
+        description: req.body.description,
+        duration: parseInt(req.body.duration),
+        date: date.substring(0, 16)
+    })
+
+    res.json({
+        _id: req.params.id,
+        username: user.username,
+        description: data.description,
+        duration: data.duration,
+        date: data.date
     })
 })
 

@@ -47,7 +47,7 @@
                         <input type="text" name="username" id="username" placeholder="username"><br>
                         <button type="submit">Submit</button>
                     </form>
-                    <form action="/api/users/:id/exercises" method="POST" class="trackerform">
+                    <form id="formtrack" method="POST" class="trackerform" onsubmit="getLink()">
                         <h2>Add exercise</h2>
                         <input type="text" name="id" id="id" placeholder="_id"><br>
                         <input type="text" name="description" id="description" placeholder="description*"><br>
@@ -59,4 +59,10 @@
             </section>
         </main>
     </body>
+    <script>
+        function getLink(){
+            var x = document.getElementById("id").value;
+            document.getElementById("formtrack").action = `/api/users/${x}/exercises`;
+        }
+    </script>
 </html>
