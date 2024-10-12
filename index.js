@@ -3,7 +3,8 @@ const dns = require('node:dns')
 const cors = require('cors')
 const database = require('./config/database')
 const { URL } = require('url')
-const Url = require('./models/url')
+const Url = require('./models/urls')
+const User = require('./models/users')
  
 const app = express()
 require('dotenv').config()
@@ -41,6 +42,17 @@ app.get('/api/shorturl/:url',async (req, res) => {
         short_url: url
     })
     res.redirect(data.original_url)
+})
+
+app.post('/api/users', async (req, res) => {
+    let data = await User.create({
+        username: req.body.username
+    })
+
+    res.json({
+        username: data.username,
+        _id: data._id
+    })
 })
 
 app.post('/api/shorturl', (req, res, next) => {
