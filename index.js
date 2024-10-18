@@ -61,20 +61,20 @@ app.get('/api/users/:id/logs', async (req, res) => {
     if(req.query.from == null){
         exercise = await Exercise.find({
             username: user.username,
-        }).limit(req.query.limit)
+        }).select({ _id: 0, username: 0, __v: 0 }).limit(req.query.limit)
     }else{
         var from = new Date(req.query.from).toDateString()
         if(req.query.to != null){
             exercise = await Exercise.find({
                 username: user.username,
                 date: {$gte: new Date(req.query.from), $lte: new Date(req.query.to)}
-            }).limit(req.query.limit)
+            }).select({ _id: 0, username: 0, __v: 0 }).limit(req.query.limit)
             var to = new Date(req.query.to).toDateString()
         }else{
             exercise = await Exercise.find({
                 username: user.username,
                 date: {$gte: new Date(req.query.from)}
-            }).limit(req.query.limit)
+            }).select({ _id: 0, username: 0, __v: 0 }).limit(req.query.limit)
         }
     }
     exercise.forEach(n => {
